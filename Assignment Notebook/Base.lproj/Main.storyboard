@@ -87,6 +87,12 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Homework Details" id="mOI-FS-AaM"/>
+                    <connections>
+                        <outlet property="assignmentTextField" destination="Te3-Ef-nwP" id="Qfh-t0-oKF"/>
+                        <outlet property="dateTextField" destination="kZ7-Dc-ay0" id="qyO-Dn-XAu"/>
+                        <outlet property="imageView" destination="l1e-Uy-hIX" id="eMR-fx-9N0"/>
+                        <outlet property="subjectTextField" destination="4kC-aO-iND" id="CAs-5Y-CmY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>

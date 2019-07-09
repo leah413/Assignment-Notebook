@@ -9,16 +9,36 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    @IBOutlet weak var assignmentTextField: UITextField!
+    @IBOutlet weak var subjectTextField: UITextField!
+    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var imageView: UIImageView!
+    var detailItem: Assignment? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    
 
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
+        if let assignment = self.detailItem {
+            if assignmentTextField != nil {
+                assignmentTextField.text = assignment.homework
+                subjectTextField.text = assignment.subject
+                dateTextField.text = String(assignment.date)
+                imageView.image = UIImage(data:assignment.image)
             }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        if let assignment = self.detailItem {
+            assignment.homework = assignmentTextField.text!
+            assignment.subject = subjectTextField.text!
+            assignment.date = dateTextField.text!
         }
     }
 
@@ -28,12 +48,7 @@ class DetailViewController: UIViewController {
         configureView()
     }
 
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
+    
 
 
 }
