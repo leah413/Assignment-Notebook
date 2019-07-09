@@ -11,7 +11,7 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = [Any]()
+    var assignments = [Assignment]()
 
 
     override func viewDidLoad() {
@@ -34,9 +34,33 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+        let alert = UIAlertController(title: "Add Assignment", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Assignment"
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Subject"
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Due date"
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        let insertAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            let assignmentTextField = alert.textFields![0] as UITextField
+            let subjectTextField = alert.textFields! [1] as UITextField
+            let dateTextField = alert.textFields! [2] as UITextField
+            guard let image = UIImage(named: assignmentTextField.text!) else {
+                print("missing \(assignmentTextField.text!) image")
+                return }
+            let assignment = Assignment(homework: assignmentTextField.text!, subject: subjectTextField.text!, date: dateTextField.text!, image: image.pngData()!)
+                self.assignments.append(assignment)
+                self.tableView.reloadData()
+            
+            }
+        }
+        alert.addAction(insertAction)
+        present(alert, animated: true, completion: nil)
     }
 
     // MARK: - Segues
